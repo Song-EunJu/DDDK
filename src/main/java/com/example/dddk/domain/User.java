@@ -1,11 +1,6 @@
 package com.example.dddk.domain;
-
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-
 import javax.persistence.*;
-
 @Getter
 @Builder
 @AllArgsConstructor
@@ -49,3 +44,28 @@ public class User{
         return this.role.getKey();
     }
 }
+
+//@Getter
+//@Builder
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Entity(name="user") // DB의 테이블, JPA를 사용할 클래스를 명시하며, 테이블과 매핑하는 역할
+//
+//public class User {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO INCREMENT
+//    private Long id;
+//
+//    @Column(nullable = false)
+//    private String firstname;
+//
+//    @Column(nullable = false)
+//    private String lastname;
+//
+//    @Builder
+//    public User(String firstname, String lastname) {
+//        this.firstname = firstname;
+//        this.lastname = lastname;
+//    }
+//}

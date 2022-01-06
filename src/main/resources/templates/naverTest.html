@@ -1,37 +1,28 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>스프링 부트 웹 서비스</title>
-
-    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8"/>
+    <meta charset="UTF-8">
+    <title>네이버 아이디로 로그인</title>
+    <style>
+  pre{
+    overflow: scroll;
+  }
+</style>
 </head>
 <body>
-<h1>스프링 부트로 시작하는 웹 서비스 v2</h1>
-<div class="col-md-12">
-    <!-- 로그인 영역 -->
-    <div class="row">
-        <div class="col-md-6">
-            <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
-            <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-            <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
-            <!-- 네이버 로그인 버튼 추가 -->
-            <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
-        </div>
-    </div>
-    <br>
-    <!-- 목록 영역 -->
-    <table>
-        <tbody>
-        <tr th:each="team : ${teams}">
-            <div class="team-names">
-                <div style="text-align:center;">
-                    <a style="text-decoration:none; color:inherit;" th:href="@{http://3.34.52.66/login/naver}"
-                       th:text="${team.value}"/>
-                </div>
-            </div>
-        </tr>
-        </tbody>
-    </table>
+<div th:if="${session.currentUser eq null}">
+    <h3>네이버 로그인</h3>
+    <a th:href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 </div>
+
+<div th:if="${session.currentUser ne null}">
+    <h3>이 부분은 로그인한 사용자한테만 보임</h3>
+    <pre th:text="${session.currentUser}"></pre>
+    <a th:href="${'/naver/getProfile?accessToken=' + session.currentAT}">Get User's Profile</a>
+    <a th:href="${'/naver/refreshToken?refreshToken=' + session.currentRT}">Refresh Token</a>
+    <a th:href="${'/naver/deleteToken?accessToken=' + session.currentAT}">Delete Token</a>
+    <a href="/naver/invalidate">로그아웃 (Invalidate Session)</a>
+</div>
+
 </body>
 </html>
